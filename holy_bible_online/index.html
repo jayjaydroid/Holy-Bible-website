@@ -1,0 +1,308 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f7f5ef">
+  <meta name="description" content="Read the Holy Bible, explore Scripture, discover daily inspiration, and save your favorite verses.">
+
+  <title>Holy Bible | A Daily Walk in Faith</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <header class="topbar">
+    <a href="#home" class="brand">
+      <span class="brand-mark">✦</span>
+      <span>the <strong>Holy Bible</strong></span>
+    </a>
+
+    <nav class="top-nav" aria-label="Main navigation">
+      <a href="#home" class="nav-link active">Home</a>
+      <a href="#daily" class="nav-link">Daily Verse</a>
+      <a href="#reader" class="nav-link">Read Bible</a>
+      <a href="#favorites" class="nav-link">Favorites</a>
+    </nav>
+
+    <button class="menu-toggle" id="menuToggle"
+            aria-label="Open navigation" aria-expanded="false">
+      ☰
+    </button>
+  </header>
+
+  <main class="page">
+
+    <!-- HOME -->
+    <section id="home" class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="gold-line"></span> YOUR DAILY MOMENT OF PEACE</p>
+
+        <h1>Let faith guide<br>your <em>every step.</em></h1>
+
+        <p class="hero-description">
+          Find comfort in His Word, discover wisdom for today,
+          and make every day an opportunity to grow in faith.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#reader" class="btn btn-primary">Start Reading <span>↗</span></a>
+          <button class="btn btn-secondary" id="heroVerseButton">Inspire Me ✨</button>
+        </div>
+
+        <div class="hero-note">
+          <span class="online-dot"></span>
+          A little Scripture can brighten your day.
+        </div>
+      </div>
+
+      <div class="hero-art" aria-hidden="true">
+        <div class="sun-circle"></div>
+        <div class="hero-cross">✝</div>
+        <div class="hero-art-label">BE STILL. HAVE FAITH.</div>
+        <div class="hero-art-subtitle">His grace is sufficient.</div>
+      </div>
+    </section>
+
+    <!-- DAILY VERSE -->
+    <section id="daily" class="daily-section">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">A MOMENT WITH GOD</p>
+          <h2>Verse of the day</h2>
+        </div>
+        <span class="date-label" id="todayLabel"></span>
+      </div>
+
+      <article class="daily-card">
+        <span class="quote-mark">“</span>
+
+        <p class="daily-verse" id="dailyVerse">
+          Trust in the LORD with all thine heart;
+          and lean not unto thine own understanding.
+        </p>
+
+        <p class="daily-reference" id="dailyReference">Proverbs 3:5</p>
+
+        <div class="daily-actions">
+          <button class="btn btn-light" id="newVerseButton">
+            ↻ New Inspiration
+          </button>
+
+          <button class="icon-button" id="copyDailyButton"
+                  aria-label="Copy daily verse" title="Copy verse">
+            ▢
+          </button>
+
+          <button class="icon-button" id="saveDailyButton"
+                  aria-label="Save daily verse" title="Save verse">
+            ♡
+          </button>
+        </div>
+      </article>
+
+      <p class="daily-message" id="dailyMessage">
+        Take a breath. Trust God's timing, and keep moving forward with faith.
+      </p>
+    </section>
+
+    <!-- SEARCH -->
+    <section id="search" class="search-section">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">FIND WHAT YOU NEED</p>
+          <h2>Search the Scriptures</h2>
+        </div>
+      </div>
+
+      <form id="searchForm" class="search-form">
+        <span class="search-icon" aria-hidden="true">⌕</span>
+
+        <input
+          type="search"
+          id="searchInput"
+          placeholder="Try John 3:16, Psalm 23, or a word in your current chapter..."
+          aria-label="Search Bible references or verses"
+          required
+        >
+
+        <button class="btn btn-primary search-submit" type="submit">
+          Search
+        </button>
+      </form>
+
+      <p class="search-help">
+        Search a reference to open it. Keyword searches scan the chapter
+        currently displayed in the reader.
+      </p>
+
+      <div id="searchResults" class="search-results" aria-live="polite"></div>
+    </section>
+
+    <!-- READER AND COMPACT BOOK LIST -->
+    <section id="reader" class="reader-section">
+      <div class="section-heading reader-title">
+        <div>
+          <p class="eyebrow">READ AT YOUR OWN PACE</p>
+          <h2>Explore the Bible</h2>
+        </div>
+        <span class="book-count">66 books · 2 Testaments</span>
+      </div>
+
+      <div class="reader-layout">
+
+        <!-- SMALL RECTANGULAR SIDEBAR -->
+        <aside class="book-sidebar">
+          <div class="sidebar-heading">
+            <div>
+              <h3>Books</h3>
+              <p>Select a book to begin.</p>
+            </div>
+            <span class="sidebar-book-icon">▤</span>
+          </div>
+
+          <label class="sidebar-search-label" for="bookSearch">
+            Find a book
+          </label>
+
+          <input
+            type="search"
+            id="bookSearch"
+            class="book-search"
+            placeholder="Search books..."
+          >
+
+          <div class="testament-tabs">
+            <button class="filter-button active"
+                    data-filter="all" aria-pressed="true">All</button>
+            <button class="filter-button"
+                    data-filter="old" aria-pressed="false">Old</button>
+            <button class="filter-button"
+                    data-filter="new" aria-pressed="false">New</button>
+          </div>
+
+          <div id="booksContent" class="books-content"></div>
+
+          <p class="sidebar-note">Choose a book, then select a chapter.</p>
+        </aside>
+
+        <!-- MAIN READING AREA -->
+        <div class="reader-main">
+          <div class="reader-toolbar">
+            <div>
+              <p class="reader-kicker">NOW READING</p>
+              <h3 id="selectedBook">Welcome to the Bible</h3>
+              <p id="readerSubheading" class="reader-subheading">
+                Select a book from the list.
+              </p>
+            </div>
+
+            <label class="chapter-label" for="chapterSelect">
+              <span>Chapter</span>
+              <select id="chapterSelect" disabled>
+                <option value="">Select</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="reader-progress">
+            <div class="progress-track">
+              <span id="progressBar"></span>
+            </div>
+            <span id="progressText">0 chapters read</span>
+          </div>
+
+          <div class="reader-content" id="readerContent">
+            <div class="reader-welcome">
+              <div class="welcome-icon">✦</div>
+              <h3>Your reading journey starts here.</h3>
+              <p>
+                Select a Bible book from the sidebar, then choose
+                a chapter to read Scripture.
+              </p>
+              <button class="btn btn-primary" id="startGenesisButton">
+                Read Genesis 1
+              </button>
+            </div>
+          </div>
+
+          <div class="chapter-navigation">
+            <button class="btn btn-secondary" id="previousChapter" disabled>
+              ← Previous
+            </button>
+
+            <button class="btn btn-secondary" id="nextChapter" disabled>
+              Next →
+            </button>
+          </div>
+
+          <p class="reader-note">
+            Scripture is loaded online. An internet connection is required.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- MOTIVATIONAL SECTION -->
+    <section class="encouragement-section">
+      <div class="encouragement-icon">☼</div>
+      <div>
+        <p class="eyebrow">A GENTLE REMINDER</p>
+        <h2>You don't have to have everything figured out.</h2>
+        <p>
+          Keep praying, keep believing, and take one faithful step at a time.
+          Even small steps matter.
+        </p>
+      </div>
+      <button class="btn btn-primary" id="encouragementButton">
+        Give Me a Verse
+      </button>
+    </section>
+
+    <!-- FAVORITES -->
+    <section id="favorites" class="favorites-section">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">KEEP WHAT SPEAKS TO YOU</p>
+          <h2>Your favorite verses</h2>
+        </div>
+        <span class="favorite-count" id="favoriteCount">0 saved</span>
+      </div>
+
+      <div class="favorites-grid" id="favoritesGrid">
+        <div class="empty-favorites">
+          <span>♡</span>
+          <h3>Your collection starts here.</h3>
+          <p>Save verses that encourage, comfort, or inspire you.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+      <a href="#home" class="footer-brand">✦ the Holy Bible</a>
+
+      <p class="footer-verse">
+        “Thy word is a lamp unto my feet, and a light unto my path.”
+      </p>
+
+      <span class="footer-reference">PSALM 119:105 · KJV</span>
+
+      <div class="footer-bottom">
+        <span>Read. Reflect. Grow in faith.</span>
+        <a href="#home">Back to top ↑</a>
+      </div>
+    </footer>
+
+  </main>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
