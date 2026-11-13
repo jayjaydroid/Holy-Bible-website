@@ -1,0 +1,250 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#10251b">
+  <title>Login | Holy Bible Online</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      font-family: 'DM Sans', sans-serif;
+      color: #fff;
+      background:
+        radial-gradient(circle at 20% 20%, #294c36, transparent 40%),
+        linear-gradient(135deg, #091810, #183c29, #0b1c13);
+    }
+
+    .login-container {
+      width: 100%;
+      max-width: 430px;
+      text-align: center;
+    }
+
+    .logo {
+      color: #d9b66c;
+      font-size: 38px;
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 32px;
+      margin: 0;
+      letter-spacing: 1px;
+    }
+
+    .subtitle {
+      color: #c5d1c7;
+      margin: 12px 0 30px;
+      font-size: 14px;
+    }
+
+    .login-card {
+      padding: 38px 30px;
+      border-radius: 20px;
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(255,255,255,.15);
+      box-shadow: 0 20px 60px rgba(0,0,0,.3);
+    }
+
+    .login-card h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 27px;
+      margin: 0 0 10px;
+    }
+
+    .description {
+      font-size: 13px;
+      color: #c5d1c7;
+      line-height: 1.7;
+      margin-bottom: 28px;
+    }
+
+    .google-button {
+      width: 100%;
+      padding: 15px;
+      border: none;
+      border-radius: 10px;
+      background: white;
+      color: #333;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      transition: .2s;
+    }
+
+    .google-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0,0,0,.2);
+    }
+
+    .google-button:disabled {
+      opacity: .6;
+      cursor: wait;
+    }
+
+    .google-button img {
+      width: 20px;
+      height: 20px;
+    }
+
+    #message {
+      color: #ffd0b5;
+      font-size: 12px;
+      margin-top: 18px;
+      line-height: 1.6;
+    }
+
+    .legal {
+      color: #aebbb1;
+      font-size: 11px;
+      line-height: 1.8;
+      margin-top: 25px;
+    }
+
+    .legal a {
+      color: #e4c783;
+      text-decoration: none;
+    }
+
+    .footer {
+      margin-top: 25px;
+      color: #aebbb1;
+      font-size: 11px;
+      letter-spacing: 2px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="login-container">
+
+    <div class="logo">✦</div>
+
+    <h1>HOLY BIBLE ONLINE</h1>
+
+    <p class="subtitle">
+      Your daily companion in God's Word
+    </p>
+
+    <section class="login-card">
+
+      <h2>Welcome Back</h2>
+
+      <p class="description">
+        Sign in with your Google account to continue
+        reading the Holy Bible and saving your favorite verses.
+      </p>
+
+      <button class="google-button" id="googleSignIn">
+        <img
+          src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
+          alt="Google">
+        Continue with Google
+      </button>
+
+      <p id="message" role="status"></p>
+
+      <p class="legal">
+        By continuing, you agree to our
+        <a href="terms.html">Terms of Service</a>
+        and
+        <a href="privacy.html">Privacy Policy</a>.
+      </p>
+
+    </section>
+
+    <p class="footer">
+      READ · REFLECT · GROW IN FAITH
+    </p>
+
+  </main>
+
+  <script type="module">
+    import { auth } from "./firebase-config.js";
+
+    import {
+      GoogleAuthProvider,
+      signInWithPopup,
+      onAuthStateChanged
+    } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+
+    const button = document.getElementById("googleSignIn");
+    const message = document.getElementById("message");
+
+    const provider = new GoogleAuthProvider();
+
+    provider.setCustomParameters({
+      prompt: "select_account"
+    });
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        window.location.replace("index.html");
+      }
+    });
+
+    button.addEventListener("click", async () => {
+
+      button.disabled = true;
+      button.textContent = "Connecting to Google...";
+      message.textContent = "";
+
+      try {
+
+        await signInWithPopup(auth, provider);
+
+        window.location.replace("index.html");
+
+      } catch (error) {
+
+        console.error(error);
+
+        const errors = {
+          "auth/popup-closed-by-user":
+            "You closed the Google login window.",
+
+          "auth/popup-blocked":
+            "Please allow popups in your browser.",
+
+          "auth/unauthorized-domain":
+            "Your website domain is not authorized in Firebase.",
+
+          "auth/operation-not-allowed":
+            "Please enable Google sign-in in Firebase Authentication."
+        };
+
+        message.textContent =
+          errors[error.code] || error.message;
+
+        button.disabled = false;
+        button.innerHTML = `
+          <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
+          Continue with Google
+        `;
+      }
+    });
+  </script>
+
+</body>
+</html>
